@@ -9,6 +9,7 @@ st.set_page_config(page_title="Job Search", page_icon="🧑‍💼", layout="wid
 @st.cache_data
 def load_job_data():
     jobs = [
+        # ---------- SERVICE ----------
         {
             "id": 1,
             "title": "Cafe Barista",
@@ -24,45 +25,6 @@ def load_job_data():
         },
         {
             "id": 2,
-            "title": "Warehouse Packaging Staff",
-            "company": "Coupang Logistics Center",
-            "location": "Bucheon, Gyeonggi-do",
-            "salary": "₩12,000 per hour",
-            "type": "Short-term",
-            "visa": ["E-9", "H-2", "F-2", "F-4", "F-5"],
-            "description": "Work includes packing and preparing goods for shipment in a warehouse environment.",
-            "requirements": "Physically fit, basic Korean understanding",
-            "posted": datetime.now() - timedelta(days=1),
-            "category": "Logistics/Delivery"
-        },
-        {
-            "id": 3,
-            "title": "English Instructor",
-            "company": "ABC Language Academy",
-            "location": "Seoul, Songpa-gu",
-            "salary": "₩2,500,000 per month",
-            "type": "Full-time",
-            "visa": ["E-2", "F-2", "F-5", "F-6"],
-            "description": "Teach conversational English to elementary school students in small classes.",
-            "requirements": "Native-level English, teaching experience preferred",
-            "posted": datetime.now() - timedelta(days=5),
-            "category": "Education"
-        },
-        {
-            "id": 4,
-            "title": "Chinese Translator",
-            "company": "Global Translation Agency",
-            "location": "Seoul, Mapo-gu",
-            "salary": "Negotiable per project",
-            "type": "Freelance",
-            "visa": ["F-2", "F-4", "F-5", "F-6"],
-            "description": "Translation between Chinese and Korean. Remote work available.",
-            "requirements": "Native Chinese proficiency, 2+ years translation experience",
-            "posted": datetime.now() - timedelta(days=3),
-            "category": "Translation/Interpretation"
-        },
-        {
-            "id": 5,
             "title": "Restaurant Server",
             "company": "Bonjuk by TheBorn Korea",
             "location": "Seoul, Jongno-gu",
@@ -75,46 +37,7 @@ def load_job_data():
             "category": "Service"
         },
         {
-            "id": 6,
-            "title": "Backend Developer (Python/Django)",
-            "company": "Tech Startup Korea",
-            "location": "Seoul, Gangnam-gu",
-            "salary": "₩40M–₩60M per year",
-            "type": "Full-time",
-            "visa": ["E-7", "F-2", "F-5"],
-            "description": "We are looking for an experienced backend engineer to build scalable systems.",
-            "requirements": "3+ years of Python experience, AWS experience preferred",
-            "posted": datetime.now() - timedelta(days=7),
-            "category": "IT/Development"
-        },
-        {
-            "id": 7,
-            "title": "Factory Line Worker",
-            "company": "Samsung Electronics Partner",
-            "location": "Suwon, Gyeonggi-do",
-            "salary": "₩2,200,000 per month",
-            "type": "Full-time",
-            "visa": ["E-9", "H-2", "F-4", "F-5"],
-            "description": "Assemble electronic devices on production lines. Dormitory provided.",
-            "requirements": "Hardworking, night shift availability preferred",
-            "posted": datetime.now() - timedelta(days=4),
-            "category": "Manufacturing"
-        },
-        {
-            "id": 8,
-            "title": "Marketing Intern",
-            "company": "Global Marketing Co.",
-            "location": "Seoul, Yeongdeungpo-gu",
-            "salary": "₩1,800,000 per month",
-            "type": "Internship",
-            "visa": ["D-2", "D-10", "F-2", "F-5", "F-6"],
-            "description": "Assist in social media marketing, content creation, and campaign analysis.",
-            "requirements": "Advanced Korean, interest in digital marketing",
-            "posted": datetime.now() - timedelta(days=2),
-            "category": "Marketing/PR"
-        },
-        {
-            "id": 9,
+            "id": 3,
             "title": "Convenience Store Night Shift",
             "company": "CU Convenience Store",
             "location": "Seoul, Gwanak-gu",
@@ -127,33 +50,35 @@ def load_job_data():
             "category": "Service"
         },
         {
-            "id": 10,
-            "title": "Hotel Front Desk Staff",
-            "company": "Lotte Hotel",
+            "id": 4,
+            "title": "Hotel Waiter / Waitress",
+            "company": "Shilla Hotel",
             "location": "Seoul, Jung-gu",
-            "salary": "₩2,800,000 per month",
-            "type": "Full-time",
-            "visa": ["E-7", "F-2", "F-5", "F-6"],
-            "description": "Provide guest check-in, reservations, and concierge support at a 5-star hotel.",
-            "requirements": "Fluent in English & Korean, hotel experience preferred",
-            "posted": datetime.now() - timedelta(days=6),
-            "category": "Hospitality"
-        },
-        {
-            "id": 11,
-            "title": "Graphic Designer",
-            "company": "DesignHub Studio",
-            "location": "Seoul, Seodaemun-gu",
-            "salary": "₩3,000,000 per month",
-            "type": "Full-time",
-            "visa": ["E-7", "F-2", "F-5"],
-            "description": "Create marketing materials, posters, and digital content for clients.",
-            "requirements": "Proficiency in Photoshop/Illustrator, creative portfolio required",
+            "salary": "₩10,500 per hour",
+            "type": "Part-time",
+            "visa": ["F-2", "F-4", "F-5", "F-6", "H-2"],
+            "description": "Serve guests at hotel restaurants and banquets.",
+            "requirements": "Intermediate Korean and English communication skills",
             "posted": datetime.now() - timedelta(days=3),
-            "category": "Design/Creative"
+            "category": "Service"
+        },
+
+        # ---------- LOGISTICS / DELIVERY ----------
+        {
+            "id": 5,
+            "title": "Warehouse Packaging Staff",
+            "company": "Coupang Logistics Center",
+            "location": "Bucheon, Gyeonggi-do",
+            "salary": "₩12,000 per hour",
+            "type": "Short-term",
+            "visa": ["E-9", "H-2", "F-2", "F-4", "F-5"],
+            "description": "Work includes packing and preparing goods for shipment in a warehouse environment.",
+            "requirements": "Physically fit, basic Korean understanding",
+            "posted": datetime.now() - timedelta(days=1),
+            "category": "Logistics/Delivery"
         },
         {
-            "id": 12,
+            "id": 6,
             "title": "Delivery Rider",
             "company": "Baemin Delivery",
             "location": "Incheon, Namdong-gu",
@@ -166,39 +91,180 @@ def load_job_data():
             "category": "Logistics/Delivery"
         },
         {
-            "id": 13,
-            "title": "Cleaning Staff (Office)",
-            "company": "CleanPro Services",
-            "location": "Seoul, Mapo-gu",
-            "salary": "₩9,800 per hour",
-            "type": "Part-time",
-            "visa": ["H-2", "E-9", "F-4", "F-5"],
-            "description": "Office cleaning duties including vacuuming, wiping desks, and trash collection.",
-            "requirements": "Basic Korean, punctuality and responsibility",
+            "id": 7,
+            "title": "Warehouse Loader",
+            "company": "CJ Logistics",
+            "location": "Gimpo, Gyeonggi-do",
+            "salary": "₩11,500 per hour",
+            "type": "Full-time",
+            "visa": ["E-9", "H-2", "F-4", "F-5"],
+            "description": "Loading and unloading parcels and organizing warehouse space.",
+            "requirements": "Physically strong and able to lift packages up to 20kg",
             "posted": datetime.now() - timedelta(days=2),
-            "category": "Maintenance/Cleaning"
+            "category": "Logistics/Delivery"
+        },
+
+        # ---------- IT / DEVELOPMENT ----------
+        {
+            "id": 8,
+            "title": "Backend Developer (Python/Django)",
+            "company": "Tech Startup Korea",
+            "location": "Seoul, Gangnam-gu",
+            "salary": "₩40M–₩60M per year",
+            "type": "Full-time",
+            "visa": ["E-7", "F-2", "F-5"],
+            "description": "We are looking for an experienced backend engineer to build scalable systems.",
+            "requirements": "3+ years of Python experience, AWS experience preferred",
+            "posted": datetime.now() - timedelta(days=7),
+            "category": "IT/Development"
+        },
+        {
+            "id": 9,
+            "title": "Frontend Developer (React)",
+            "company": "NextGen Web Labs",
+            "location": "Seoul, Mapo-gu",
+            "salary": "₩45M–₩65M per year",
+            "type": "Full-time",
+            "visa": ["E-7", "F-2", "F-5"],
+            "description": "Develop responsive web interfaces using React and TypeScript.",
+            "requirements": "2+ years frontend experience, portfolio preferred",
+            "posted": datetime.now() - timedelta(days=5),
+            "category": "IT/Development"
+        },
+        {
+            "id": 10,
+            "title": "Data Analyst Intern",
+            "company": "K-Digital Analytics",
+            "location": "Seoul, Seocho-gu",
+            "salary": "₩2,000,000 per month",
+            "type": "Internship",
+            "visa": ["D-2", "D-10", "F-2", "F-5", "F-6"],
+            "description": "Assist data team with SQL queries, dashboards, and basic data visualization.",
+            "requirements": "Knowledge of Python, Excel, and data analytics tools",
+            "posted": datetime.now() - timedelta(days=3),
+            "category": "IT/Development"
+        },
+
+        # ---------- EDUCATION ----------
+        {
+            "id": 11,
+            "title": "English Instructor",
+            "company": "ABC Language Academy",
+            "location": "Seoul, Songpa-gu",
+            "salary": "₩2,500,000 per month",
+            "type": "Full-time",
+            "visa": ["E-2", "F-2", "F-5", "F-6"],
+            "description": "Teach conversational English to elementary school students in small classes.",
+            "requirements": "Native-level English, teaching experience preferred",
+            "posted": datetime.now() - timedelta(days=5),
+            "category": "Education"
+        },
+        {
+            "id": 12,
+            "title": "Math Tutor",
+            "company": "Bright Minds Academy",
+            "location": "Seoul, Seongdong-gu",
+            "salary": "₩25,000 per hour",
+            "type": "Part-time",
+            "visa": ["F-2", "F-5", "F-6"],
+            "description": "Private tutoring for middle school math students. Materials provided.",
+            "requirements": "Fluent Korean or English, tutoring experience a plus",
+            "posted": datetime.now() - timedelta(days=2),
+            "category": "Education"
+        },
+
+        # ---------- MANUFACTURING ----------
+        {
+            "id": 13,
+            "title": "Factory Line Worker",
+            "company": "Samsung Electronics Partner",
+            "location": "Suwon, Gyeonggi-do",
+            "salary": "₩2,200,000 per month",
+            "type": "Full-time",
+            "visa": ["E-9", "H-2", "F-4", "F-5"],
+            "description": "Assemble electronic devices on production lines. Dormitory provided.",
+            "requirements": "Hardworking, night shift availability preferred",
+            "posted": datetime.now() - timedelta(days=4),
+            "category": "Manufacturing"
         },
         {
             "id": 14,
-            "title": "Content Creator",
-            "company": "MediaWave Studio",
-            "location": "Seoul, Yongsan-gu",
-            "salary": "₩2,400,000 per month",
+            "title": "Machine Operator",
+            "company": "Hyundai Precision Parts",
+            "location": "Ulsan, Nam-gu",
+            "salary": "₩2,500,000 per month",
             "type": "Full-time",
-            "visa": ["F-2", "F-5", "F-6"],
-            "description": "Produce and edit short-form videos for social platforms (YouTube, Instagram).",
-            "requirements": "Fluent English, good camera presence, basic editing skills",
-            "posted": datetime.now() - timedelta(days=5),
-            "category": "Media/Entertainment"
+            "visa": ["E-9", "H-2", "F-4", "F-5"],
+            "description": "Operate metal-cutting and assembly machines in an auto parts plant.",
+            "requirements": "Basic Korean, manufacturing experience preferred",
+            "posted": datetime.now() - timedelta(days=3),
+            "category": "Manufacturing"
+        },
+
+        # ---------- MARKETING / PR ----------
+        {
+            "id": 15,
+            "title": "Marketing Intern",
+            "company": "Global Marketing Co.",
+            "location": "Seoul, Yeongdeungpo-gu",
+            "salary": "₩1,800,000 per month",
+            "type": "Internship",
+            "visa": ["D-2", "D-10", "F-2", "F-5", "F-6"],
+            "description": "Assist in social media marketing, content creation, and campaign analysis.",
+            "requirements": "Advanced Korean, interest in digital marketing",
+            "posted": datetime.now() - timedelta(days=2),
+            "category": "Marketing/PR"
+        },
+        {
+            "id": 16,
+            "title": "Social Media Manager",
+            "company": "Seoul Trend Agency",
+            "location": "Seoul, Gangnam-gu",
+            "salary": "₩3,000,000 per month",
+            "type": "Full-time",
+            "visa": ["E-7", "F-2", "F-5", "F-6"],
+            "description": "Manage Instagram, TikTok, and YouTube accounts for brand clients.",
+            "requirements": "Experience in influencer marketing, fluent English",
+            "posted": datetime.now() - timedelta(days=4),
+            "category": "Marketing/PR"
+        },
+
+        # ---------- TRANSLATION / INTERPRETATION ----------
+        {
+            "id": 17,
+            "title": "Chinese Translator",
+            "company": "Global Translation Agency",
+            "location": "Seoul, Mapo-gu",
+            "salary": "Negotiable per project",
+            "type": "Freelance",
+            "visa": ["F-2", "F-4", "F-5", "F-6"],
+            "description": "Translation between Chinese and Korean. Remote work available.",
+            "requirements": "Native Chinese proficiency, 2+ years translation experience",
+            "posted": datetime.now() - timedelta(days=3),
+            "category": "Translation/Interpretation"
+        },
+        {
+            "id": 18,
+            "title": "Japanese Interpreter",
+            "company": "Korea Trade Center",
+            "location": "Busan, Haeundae-gu",
+            "salary": "₩250,000 per day",
+            "type": "Freelance",
+            "visa": ["F-2", "F-4", "F-5", "F-6"],
+            "description": "Interpret for business meetings between Korean and Japanese clients.",
+            "requirements": "Fluent in Japanese and Korean, experience in trade preferred",
+            "posted": datetime.now() - timedelta(days=2),
+            "category": "Translation/Interpretation"
         },
     ]
     return pd.DataFrame(jobs)
+
 
 # Load data
 df = load_job_data()
 
 # Title
-st.title("🧑‍💼 Job Search - Employment Opportunities for Foreign Residents")
+st.title("🧑‍💼 Job Search")
 st.write("Find job opportunities in Korea tailored for foreign residents.")
 
 # Sidebar filters
