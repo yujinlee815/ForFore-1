@@ -61,17 +61,17 @@ import torch
 from transformers import AutoProcessor, AutoModelForVision2Seq
 
 # --------------------------
-# 기본 설정
+# Basic Configuration
 # --------------------------
-st.set_page_config(page_title="Llama 3.2 Vision Chatbot", page_icon="💬", layout="centered")
+st.set_page_config(page_title="ForFore Chatbot", page_icon="💬", layout="centered")
 
-# 4-bit이 더 가벼움. GPU VRAM 적으면 아래 4bit 주석을 풀고 쓰세요.
+# 4-bit is lighter. If you have low GPU VRAM, uncomment the 4-bit version below.
 DEFAULT_MODEL_ID = "unsloth/Llama-3.2-11B-Vision-Instruct"
-# DEFAULT_MODEL_ID = "unsloth/Llama-3.2-11B-Vision-Instruct-bnb-4bit"  # 4-bit 변형(이름은 환경에 따라 약간 다를 수 있음)
+# DEFAULT_MODEL_ID = "unsloth/Llama-3.2-11B-Vision-Instruct-bnb-4bit"  # 4-bit variant
 
 @st.cache_resource(show_spinner=True)
 def load_model(model_id: str):
-    """모델/프로세서를 1회만 로드해서 캐시."""
+    """Load model and processor once and cache."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
     dtype = torch.float16 if device == "cuda" else torch.float32
 
@@ -86,9 +86,9 @@ def load_model(model_id: str):
 
 def generate_reply(user_text: str, image_file, processor, model, max_new_tokens: int = 256):
     """
-    Llama-3.2-Vision은 chat template이 필요함.
-    이미지가 있을 땐 {"type": "image"} 토큰을 포함한 메시지로 prompt를 만든 뒤,
-    processor(text=prompt, images=[...]) 형태로 전달해야 함.
+    Llama-3.2-Vision requires a chat template.
+    When an image is present, create a prompt with {"type": "image"} token,
+    then pass it as processor(text=prompt, images=[...]).
     """
     if image_file is not None:
         image = Image.open(image_file).convert("RGB")
@@ -97,8 +97,8 @@ def generate_reply(user_text: str, image_file, processor, model, max_new_tokens:
             {
                 "role": "user",
                 "content": [
-                    {"type": "image"},                       # ← 이미지 토큰
-                    {"type": "text", "text": user_text},     # ← 사용자 질문
+                    {"type": "image"},                       # ← Image token
+                    {"type": "text", "text": user_text},     # ← User question
                 ],
             }
         ]
@@ -107,13 +107,13 @@ def generate_reply(user_text: str, image_file, processor, model, max_new_tokens:
         )
         inputs = processor(
             text=prompt,
-            images=[image],      # 리스트로 전달
+            images=[image],      # Pass as list
             return_tensors="pt",
             padding=True
         ).to(model.device)
 
     else:
-        # 텍스트만 있을 때도 chat template을 사용
+        # For text-only input, also use chat template
         messages = [
             {"role": "user", "content": [{"type": "text", "text": user_text}]}
         ]
@@ -133,46 +133,49 @@ def generate_reply(user_text: str, image_file, processor, model, max_new_tokens:
 
 
 # --------------------------
-# 사이드바 (설정)
+# Sidebar (Settings)
 # --------------------------
 with st.sidebar:
     st.markdown("### ⚙️ Settings")
-    model_id = st.text_input("Hugging Face 모델 ID", value=DEFAULT_MODEL_ID, help="예) unsloth/Llama-3.2-11B-Vision-Instruct")
-    max_tokens = st.slider("max_new_tokens", min_value=64, max_value=1024, value=256, step=64)
-    st.caption("소박이")
+    model_id = st.text_input("Hugging Face Model ID", value=DEFAULT_MODEL_ID, help="e.g., unsloth/Llama-3.2-11B-Vision-Instruct")
+    max_tokens = st.slider("Max New Tokens", min_value=64, max_value=1024, value=256, step=64)
+    st.caption("ForFore AI Assistant")
 
 st.title("🤖 ForFore Chatbot 🤖")
-st.write("ForFore은 한국에 거주하는 외국인 주민을 위한 지능형 행정·생활 도우미입니다. 비자, 계약서, 생활문서 등 이미지를 올리면 내용을 분석해 사용자의 모국어로 이해하기 쉬운 설명과 안내를 제공합니다.")
+st.write("ForFore is an intelligent administrative and life assistant for foreign residents in Korea. Upload images of visas, contracts, or documents to receive easy-to-understand explanations in your native language.")
 
-# 모델 로드
+# New feature announcement
+st.info("💡 **New Feature!** Check out the **Jobs** page in the left sidebar! Find employment opportunities tailored for foreign residents.")
+
+# Load model
 processor, model = load_model(model_id)
 
-# 채팅 기록 상태
+# Chat history state
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# 이전 대화 렌더링
+# Render previous conversations
 for role, content in st.session_state.messages:
     with st.chat_message(role):
         st.markdown(content)
 
-# 선택 이미지 업로드
-uploaded_image = st.file_uploader("이미지(선택)", type=["png", "jpg", "jpeg"])
+# Optional image upload
+uploaded_image = st.file_uploader("Upload Image (Optional)", type=["png", "jpg", "jpeg"])
 
-# 입력창
-if user_input := st.chat_input("메시지를 입력하세요"):
-    # 사용자 메시지 출력/저장
+# Input field
+if user_input := st.chat_input("Type your message here..."):
+    # Display and save user message
     st.session_state.messages.append(("user", user_input))
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    # 모델 응답
+    # Model response
     with st.chat_message("assistant"):
-        with st.spinner("생각 중..."):
+        with st.spinner("Thinking..."):
             try:
                 reply = generate_reply(user_input, uploaded_image, processor, model, max_new_tokens=max_tokens)
             except Exception as e:
-                reply = f"오류가 발생했어요: {e}"
+                reply = f"An error occurred: {e}"
             st.markdown(reply)
 
     st.session_state.messages.append(("assistant", reply))
